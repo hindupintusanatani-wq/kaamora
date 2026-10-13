@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10172a">
+  <meta name="description" content="Kaamora connects clients and freelancers around the world.">
+  <title>Kaamora — Work Without Limits</title>
+  <style>
+    :root {
+      --navy: #10172a;
+      --panel: #19233a;
+      --orange: #ff8b36;
+      --lime: #c9f36a;
+      --white: #f7f8fc;
+      --muted: #aab4c8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--navy);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 6%;
+      border-bottom: 1px solid #303951;
+    }
+
+    .logo {
+      color: var(--lime);
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .badge {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    main {
+      width: min(1050px, 92%);
+      margin: auto;
+    }
+
+    .hero {
+      padding: 60px 0 35px;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #49516a;
+      border-radius: 25px;
+      color: var(--lime);
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 8vw, 62px);
+      line-height: 1.12;
+      margin: 20px 0;
+    }
+
+    h1 span { color: var(--orange); }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    button, select, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: bold;
+    }
+
+    .primary {
+      background: var(--orange);
+      color: #171717;
+    }
+
+    .secondary {
+      background: var(--lime);
+      color: #17200d;
+    }
+
+    .outline {
+      background: transparent;
+      color: white;
+      border: 1px solid #59627a;
+    }
+
+    .section { padding: 28px 0; }
+
+    h2 { font-size: 25px; }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tabs button.active {
+      background: var(--lime);
+      color: var(--navy);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid #303951;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .card p, .muted { color: var(--muted); }
+
+    .price {
+      color: var(--lime);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      color: white;
+      background: #10172a;
+      border: 1px solid #414b65;
+      border-radius: 9px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .notice {
+      border-left: 3px solid var(--orange);
+      padding: 12px;
+      background: #202a40;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      margin-top: 45px;
+      padding: 25px 5%;
+      text-align: center;
+      border-top: 1px solid #303951;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 14px 4%; }
+      .logo { font-size: 23px; }
+      .hero { padding-top: 42px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <div class="logo">kaamora<span style="color:#ff8b36">.</span></div>
+      <div class="badge">TALENT WITHOUT BORDERS</div>
+    </div>
+    <button class="outline" onclick="showSection('projects')">Explore work ↗</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="tag">YOUR SKILLS. YOUR OPPORTUNITY.</span>
+      <h1>Great work starts<br>with <span>the right people.</span></h1>
+      <p>
+        A marketplace concept connecting clients with creative freelancers.
+        Discover talent, explore projects and build something great together.
+      </p>
+      <button class="primary" onclick="chooseMode('client')">I need talent</button>
+      <button class="secondary" onclick="chooseMode('freelancer')">I'm a freelancer</button>
+    </section>
+
+    <section class="section">
+      <h2>Find your next opportunity</h2>
+      <div class="tabs">
+        <button id="clientTab" class="outline active" onclick="chooseMode('client')">Client</button>
+        <button id="freelancerTab" class="outline" onclick="chooseMode('freelancer')">Freelancer</button>
+      </div>
+
+      <div id="clientPanel" class="card">
+        <h3>Post a project</h3>
+        <p class="muted">Tell freelancers what you need.</p>
+        <form id="projectForm">
+          <label>Project title
+            <input id="projectTitle" required maxlength="100" placeholder="e.g. Instagram Reel Editing">
+          </label>
+          <label>Service
+            <select id="projectCategory">
+              <option>Reels Editing</option>
+              <option>Video Editing</option>
+              <option>Thumbnail Design</option>
+              <option>Graphic Design</option>
+              <option>Other Creative Work</option>
+            </select>
+          </label>
+          <label>Budget
+            <input id="projectBudget" type="number" required min="1" placeholder="Enter amount">
+          </label>
+          <label>Currency
+            <select id="projectCurrency">
+              <option value="INR">INR — Indian Rupee (₹)</option>
+              <option value="USD">USD — US Dollar ($)</option>
+              <option value="GBP">GBP — British Pound (£)</option>
+              <option value="EUR">EUR — Euro (€)</option>
+              <option value="AUD">AUD — Australian Dollar (A$)</option>
+              <option value="CAD">CAD — Canadian Dollar (C$)</option>
+            </select>
+          </label>
+          <label>Project details
+            <textarea id="projectDetails" required maxlength="1500" placeholder="Explain the work, deadline and requirements"></textarea>
+          </label>
+          <button class="primary" type="submit">Preview project</button>
+        </form>
+        <p id="projectMessage" class="notice hidden"></p>
+      </div>
+
+      <div id="freelancerPanel" class="card hidden">
+        <h3>Freelancer profile</h3>
+        <p class="muted">Introduce your skills and creative services.</p>
+        <form id="profileForm">
+          <label>Your display name
+            <input id="freelancerName" required maxlength="70" placeholder="Your name or professional name">
+          </label>
+          <label>Your main skill
+            <select id="freelancerSkill">
+              <option>Reels Editing</option>
+              <option>Video Editing</option>
+              <option>Thumbnail Design</option>
+              <option>Graphic Design</option>
+              <option>Other Creative Work</option>
+            </select>
+          </label>
+          <label>Starting price
+            <input id="freelancerPrice" type="number" min="1" required placeholder="Enter amount">
+          </label>
+          <label>Currency
+            <select id="freelancerCurrency">
+              <option value="INR">INR — Indian Rupee (₹)</option>
+              <option value="USD">USD — US Dollar ($)</option>
+              <option value="GBP">GBP — British Pound (£)</option>
+              <option value="EUR">EUR — Euro (€)</option>
+              <option value="AUD">AUD — Australian Dollar (A$)</option>
+              <option value="CAD">CAD — Canadian Dollar (C$)</option>
+            </select>
+          </label>
+          <label>About your service
+            <textarea id="freelancerAbout" required maxlength="1000" placeholder="Describe your skills and experience honestly"></textarea>
+          </label>
+          <button class="secondary" type="submit">Preview profile</button>
+        </form>
+        <p id="profileMessage" class="notice hidden"></p>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2>Explore creative services</h2>
+      <div class="grid">
+        <article class="card">
+          <div style="font-size:30px">🎬</div>
+          <h3>Reels Editing</h3>
+          <p>Short-form videos, captions and engaging cuts.</p>
+        </article>
+        <article class="card">
+          <div style="font-size:30px">🎥</div>
+          <h3>Video Editing</h3>
+          <p>Bring your video footage together into a story.</p>
+        </article>
+        <article class="card">
+          <div style="font-size:30px">🎨</div>
+          <h3>Thumbnail Design</h3>
+          <p>Creative visuals for videos and social channels.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Built for trust</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>🌍 Global vision</h3>
+          <p>Designed with international clients and freelancers in mind.</p>
+        </article>
+        <article class="card">
+          <h3>💱 Currency choice</h3>
+          <p>Choose a currency for your displayed project budget or service price.</p>
+        </article>
+        <article class="card">
+          <h3>🤝 Clear agreements</h3>
+          <p>Define project scope, price and deadline before work begins.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section card">
+      <h2>Payments — coming after secure setup</h2>
+      <p class="muted">
+        Kaamora plans to support marketplace payments and a transparent service fee.
+        Actual payments are not enabled on this prototype.
+      </p>
+      <div class="notice">
+        Do not send money using this page. No payment is collected here.
+        Real transactions require a secure backend, an approved payment provider,
+        identity verification where required, and appropriate refund and payout handling.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>kaamora.</strong><br>
+    Find talent. Get it done.<br>
+    © <span id="year"></span> Kaamora · Early prototype
+  </footer>
+
+  <script>
+    const currencySymbols = {
+      INR: "₹", USD: "$", GBP: "£", EUR: "€", AUD: "A$", CAD: "C$"
+    };
+
+    function chooseMode(mode) {
+      const isClient = mode === "client";
+      document.getElementById("clientPanel").classList.toggle("hidden", !isClient);
+      document.getElementById("freelancerPanel").classList.toggle("hidden", isClient);
+      document.getElementById("clientTab").classList.toggle("active", isClient);
+      document.getElementById("freelancerTab").classList.toggle("active", !isClient);
+      document.getElementById(isClient ? "clientPanel" : "freelancerPanel")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function money(amount, currency) {
+      return (currencySymbols[currency] || "") +
+        Number(amount).toLocaleString("en-IN") + " " + currency;
+    }
+
+    document.getElementById("projectForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const title = document.getElementById("projectTitle").value.trim();
+      const category = document.getElementById("projectCategory").value;
+      const budget = document.getElementById("projectBudget").value;
+      const currency = document.getElementById("projectCurrency").value;
+      const details = document.getElementById("projectDetails").value.trim();
+      const message = document.getElementById("projectMessage");
+
+      message.textContent = "Preview only — " + title + " | " + category +
+        " | Budget: " + money(budget, currency) + " | " + details +
+        ". This project has not been published to a shared marketplace.";
+      message.classList.remove("hidden");
+    });
+
+    document.getElementById("profileForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById("freelancerName").value.trim();
+      const skill = document.getElementById("freelancerSkill").value;
+      const price = document.getElementById("freelancerPrice").value;
+      const currency = document.getElementById("freelancerCurrency").value;
+      const about = document.getElementById("freelancerAbout").value.trim();
+      const message = document.getElementById("profileMessage");
+
+      message.textContent = "Profile preview — " + name + " | " + skill +
+        " | Starting price: " + money(price, currency) + " | " + about +
+        ". This profile has not been saved to a shared marketplace.";
+      message.classList.remove("hidden");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
